@@ -5,7 +5,10 @@
     <nav class="navbar">
       <div class="container">
         <div class="navbar-brand">
-          <a class="navbar-item has-text-white is-size-2 has-text-weight-bold" href="#">
+          <a
+            @click="alertMessage('Hello World Passing IN!!!!!!!!!')" 
+            class="navbar-item has-text-white is-size-2 has-text-weight-bold"
+            href="#">
             {{ brandName }}
           </a>
           <span role="button" tabindex="0" class="navbar-burger burger has-text-white" data-target="navbar-menu">
@@ -39,6 +42,11 @@ export default {
     items: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    alertMessage(message) {
+      alert(message)
     }
   }
 }

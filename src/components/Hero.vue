@@ -37,7 +37,7 @@
               <span>With tag of</span>
             </div>
             <div class="level-item">
-              <button @click="cancelCategory" class="button is-danger">Art</button>
+              <button class="button is-danger">Art</button>
             </div>
           </div>
           <!-- <div class="level-right">
