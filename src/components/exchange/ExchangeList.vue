@@ -3,47 +3,44 @@
 
 <template>
   <div class="columns is-multiline">
-    <div class="column is-12-mobile is-6-tablet is-4-widescreen is-6-desktop">
+    <!-- 1. Iterate over exchanges -->
+    <div
+      v-for="exchange in exchanges" 
+      :key="exchange.id"
+      class="column is-12-mobile is-6-tablet is-4-widescreen is-6-desktop">
       <div class="item post-card bottom-border">
         <a class="item-link" href="#">
-          <figure class="image is-2by1 item-figure background-img" :style="{ 'background-image': 'url(https://images.unsplash.com/photo-1517457210348-703079e57d4b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80)' }" alt="">
+          <!-- 2. Provide image from exchange to background-image -->
+          <figure 
+            class="image is-2by1 item-figure background-img" 
+            :style="{ 'background-image': `url(${exchange.image})` }"
+            alt="image">
           </figure>
           <div class="item-featured">
             Icon
           </div>
         </a>
         <div class="item-tags">
-          <a class="button is-rounded" href="#" title="Some Title">#Art</a>
+          <!-- 3. Iterate over exchange tags -->
+          <!-- TODO: Create custom key from tag ??? -->
+          <a
+            v-for="tag in exchange.tags"
+            :key="tag"
+            class="button is-rounded" 
+            href="#" 
+            title="Some Title">#{{tag}}</a>
         </div>
-        <h2 class="title item-title is-size-4 has-text-weight-extra-bold"><a class="item-link" href="#">Some Title</a></h2>
+        <!-- 4. Display exchange title -->
+        <h2 
+          class="title item-title is-size-4 has-text-weight-extra-bold">
+          <a class="item-link" href="#">{{exchange.title}}</a>
+        </h2>
         <div class="level">
           <div class="level-left">
+            <!-- Dont worry about author, TODO: finish later -->
             <div class="item-author">Filip Jerga</div>
           </div>
-          <div class="level-right">
-            27th December 2019
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="column is-12-mobile is-6-tablet is-4-widescreen is-6-desktop">
-      <div class="item post-card has-border">
-        <a class="item-link" href="#">
-          <div class="item-featured">
-            Icon
-          </div>
-        </a>
-        <div class="item-tags">
-          <a class="button is-rounded" href="#" title="Some Title">#Art</a>
-        </div>
-        <h2 class="title item-title is-size-4 has-text-weight-extra-bold"><a class="item-link" href="#">Some Title</a></h2>
-        <div class="item-description">
-          Aaaaaaa
-        </div>
-        <div class="level">
-          <div class="level-left">
-            <div class="item-author">Filip Jerga</div>
-          </div>
+          <!-- Dont worry about date, TODO: finish later -->
           <div class="level-right">
             27th December 2019
           </div>
@@ -52,3 +49,29 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    exchanges: {
+      type: Array,
+      required: true
+    }
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
