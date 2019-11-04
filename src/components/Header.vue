@@ -17,7 +17,7 @@
         <div id="navbar-menu" class="navbar-menu">
           <div class="navbar-end">
             <a
-              v-for="item in menuItems" 
+              v-for="item in items" 
               :key="item.text"
               :href="item.link"
               class="navbar-item nav-home">{{item.text}}</a>
@@ -30,16 +30,15 @@
 
 <script>
 export default {
-  data() {
-    return {
-      brandName: 'Exchangario',
-      menuItems: [
-        { text: 'Home', link: '/' },
-        { text: 'About', link: '/about' },
-        { text: 'FAQ', link: '/faq' },
-        { text: 'Login', link: '/login' },
-        { text: 'Register', link: '/register' }
-      ]
+  // props: ['brandName', 'items'],
+  props: {
+    brandName: {
+     type: String,
+     default: 'Exchangario'
+    },
+    items: {
+      type: Array,
+      required: true
     }
   }
 }
