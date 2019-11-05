@@ -85,6 +85,10 @@ a {
           background-color: transparent;
           color: $primary;
         }
+
+        &:focus {
+          background-color: transparent;
+        }
       }
 
       &.is-active {
