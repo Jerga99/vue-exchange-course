@@ -2,7 +2,9 @@
   <div>
     <app-header 
       :items="menuItems" />
-    <router-view />
+    <div :class="$route.path === '/' ? '' : 'page-wrapper' ">
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -30,6 +32,11 @@ export default {
   @import 'assets/styles/variables.scss';
   @import '~bulma/bulma.sass';
   @import 'assets/styles/main.scss';
+
+  .page-wrapper {
+    padding-top: 100px;
+  }
+
   .hero-section {
     position: relative;
   }
