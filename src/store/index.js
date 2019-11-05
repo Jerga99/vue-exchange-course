@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { vuexfireMutations } from 'vuexfire'
 
 import exchange from './modules/exchange'
 
@@ -13,6 +14,9 @@ export default new Vuex.Store({
     test() {
       alert('Hello Vuex')
     }
+  },
+  mutations: {
+    ...vuexfireMutations
   }
 })
 

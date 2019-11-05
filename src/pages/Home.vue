@@ -28,7 +28,7 @@ export default {
     ExchangeList
   },
   created() {
-    this.$store.dispatch('exchange/getExchanges')
+    this.$store.dispatch('exchange/bindExchanges')
   },
   computed: {
     exchanges() {
