@@ -1,12 +1,28 @@
 <template>
   <div>
+    <app-header 
+      :items="menuItems" />
     <router-view />
   </div>
 </template>
 
 <script>
+import AppHeader from '@/components/Header'
 export default {
-  name: 'app'
+  name: 'app',
+  components: { AppHeader },
+  data() {
+    return {
+      brandName: 'Exchangario',
+      menuItems: [
+        { text: 'Home', link: '/' },
+        { text: 'About', link: '/about' },
+        { text: 'FAQ', link: '/faq' },
+        { text: 'Login', link: '/login' },
+        { text: 'Register', link: '/register' }
+      ]
+    }
+  }
 }
 </script>
 
