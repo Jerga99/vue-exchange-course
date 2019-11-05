@@ -28,11 +28,11 @@ export default {
     ExchangeList
   },
   created() {
-    this.$store.dispatch('getExchanges')
+    this.$store.dispatch('exchange/getExchanges')
   },
   computed: {
     exchanges() {
-      return this.$store.state.exchanges
+      return this.$store.state.exchange.items
     }
   }
 }
