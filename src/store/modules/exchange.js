@@ -1,4 +1,5 @@
 
+import { db } from '@/db'
 
 const exchanges = [{
   id: "ad7asdsa68dasd",
@@ -38,6 +39,15 @@ export default {
   actions: {
     getExchanges({commit}) {
       // Here you want to make a call to firebase and ask for data
+      db.collection('exchanges')
+        .doc('GLgLUAMHu7mZDkseRIqi')
+        .get()
+        .then(snapshot => {
+          debugger
+          const exchange = snapshot.data()
+          return exchange
+        })
+
       commit('setExchanges', exchanges)
     }
   },
