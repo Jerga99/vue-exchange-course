@@ -9,6 +9,9 @@
           :exchanges="exchanges" />
       </div>
     </section>
+    <button
+      @click="$store.dispatch('test')" 
+      class="button is-primary">Test Vuex</button>
     <pagination />
   </div>
 </template>
@@ -32,7 +35,7 @@ const exchanges = [{
   tags: ["tools", "helping"] // can be active/inactive,
 },
 {
-  id: "ad7asdsa68dasd",
+  id: "f7ds6d7f8ds6f76ds7f67d8s",
   type: "service", // service or product
   title: "I will teach programming",
   description: "I will make you super programmer",
