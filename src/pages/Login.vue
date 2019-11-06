@@ -10,11 +10,12 @@
         <form>
           <div class="field">
             <div class="control">
-              <input class="input is-large"
-                     type="email"
-                     placeholder="Your Email"
-                     autofocus=""
-                     autocomplete="email">
+              <input 
+                v-model="form.email"
+                class="input is-large"
+                type="email"
+                placeholder="Your Email"
+                autocomplete="email">
               <!-- <div class="form-error">
                 <span class="help is-danger">Email is required</span>
                 <span class="help is-danger">Email address is not valid</span>
@@ -23,26 +24,90 @@
           </div>
           <div class="field">
             <div class="control">
-              <input class="input is-large"
-                     type="password"
-                     placeholder="Your Password"
-                     autocomplete="current-password">
+              <input 
+                v-model="form.fullName"
+                class="input is-large"
+                type="text"
+                placeholder="Full Name">
+              <!-- <div class="form-error">
+                <span class="help is-danger">Email is required</span>
+                <span class="help is-danger">Email address is not valid</span>
+              </div> -->
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input 
+                v-model="form.avatar"
+                class="input is-large"
+                type="text"
+                placeholder="Avatar Url">
+              <!-- <div class="form-error">
+                <span class="help is-danger">Email is required</span>
+                <span class="help is-danger">Email address is not valid</span>
+              </div> -->
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input 
+                v-model="form.password"
+                class="input is-large"
+                type="password"
+                placeholder="Your Password"
+                autocomplete="current-password">
               <!-- <div class="form-error">
                 <span class="help is-danger">Password is required</span>
               </div> -->
             </div>
           </div>
-          <button class="button is-block is-info is-large is-fullwidth">Sign In</button>
+          <div class="field">
+            <div class="control">
+              <input 
+                v-model="form.passwordComfirmation"
+                class="input is-large"
+                type="password"
+                placeholder="Password Confirmation">
+              <!-- <div class="form-error">
+                <span class="help is-danger">Password is required</span>
+              </div> -->
+            </div>
+          </div>
+          <button 
+            @click="handleLogin"
+            type="button"
+            class="button is-block is-info is-large is-fullwidth">Sign In</button>
         </form>
       </div>
       <p class="has-text-grey">
         <a>Sign In With Google</a>&nbsp;
-        <router-link>Sign Up</router-link> &nbsp;·&nbsp;
+        <router-link to="/register">Sign Up</router-link> &nbsp;·&nbsp;
         <a href="../">Need Help?</a>
       </p>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      form: {
+       email: 'default@gmail.com',
+       fullName: '',
+       avatar: '',
+       password: '',
+       passwordComfirmation: '' 
+      }
+    }
+  },
+  methods: {
+    handleLogin() {
+      alert(JSON.stringify(this.form))
+    }
+  }
+}
+</script>
 
 <style scoped>
   .hero.is-success {
