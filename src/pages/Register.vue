@@ -104,9 +104,9 @@ export default {
     handleRegister() {
       this.$store.dispatch('auth/signUp', this.form)
         .then(user => {
-
+          this.$router.push('/')
         }).catch(errorMessage => {
-          alert(errorMessage)
+          this.$toasted.error(errorMessage, { duration: 3000 })
         })
     }
   }
