@@ -80,7 +80,7 @@
       </div>
       <p class="has-text-grey">
         <a>Sign In With Google</a>&nbsp;
-        <router-link>Sign Up</router-link>&nbsp;·&nbsp;
+        <router-link to="/login">Sign In</router-link>&nbsp;·&nbsp;
         <a href="../">Need Help?</a>
       </p>
     </div>
@@ -103,6 +103,11 @@ export default {
   methods: {
     handleRegister() {
       this.$store.dispatch('auth/signUp', this.form)
+        .then(user => {
+
+        }).catch(errorMessage => {
+          alert(errorMessage)
+        })
     }
   }
 }

@@ -1,5 +1,6 @@
 
-import * as firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 
 
 
@@ -9,14 +10,13 @@ export default {
 
   actions: {
     signUp(context, {email, password}) {
-      debugger
       return firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(user => {
-          debugger
+        .then(({user}) => {
+          // TODO: Create profile collection in Firestore
           return user
         }).catch(error => {
-          console.log(error)
-          debugger
+          const message = error.message
+          return Promise.reject(message)
         })
     }
   }
