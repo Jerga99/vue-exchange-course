@@ -1,7 +1,7 @@
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
-
+import { db } from '@/db'
 
 
 export default {
@@ -18,6 +18,13 @@ export default {
           const message = error.message
           return Promise.reject(message)
         })
+    },
+    createUserProfile(_, {uid, userProfile}) {
+      debugger
+      return db
+        .collection('profiles')
+        .doc(uid)
+        .set(userProfile)
     }
   }
 }
