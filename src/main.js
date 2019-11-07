@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import Toasted from 'vue-toasted'
 
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import 'firebase/auth'
 
 // Font Awesome

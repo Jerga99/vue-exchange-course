@@ -25,6 +25,10 @@ export default {
           return Promise.reject(message)
         })
     },
+    signIn(_, {email, password}) {
+      return firebase.auth().signInWithEmailAndPassword(email, password)
+        .catch(error => Promise.reject(error.message))
+    },
     createUserProfile(_, {uid, userProfile}) {
       debugger
       return db
