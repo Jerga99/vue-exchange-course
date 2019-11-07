@@ -44,6 +44,11 @@
               </router-link>
             </template>
             <template v-else>
+              <router-link
+                to="/users/me"
+                class="navbar-item nav-home">
+                Profile
+              </router-link>
               <a
                 @click="$store.dispatch('auth/signOut')"
                 href="#" 

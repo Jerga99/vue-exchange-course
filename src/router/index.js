@@ -56,7 +56,6 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   const authenticatedUser = firebase.auth().currentUser
-  debugger
 
   if (to.meta.onlyAuthUser) {
     if (authenticatedUser) {

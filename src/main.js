@@ -25,6 +25,7 @@ let app;
 firebase.auth().onAuthStateChanged(user => {
   if (user) {
     store.commit('auth/setAuthUser', user)
+    // TODO: Fetch also user profile!
   }
 
   if (!app) {
