@@ -23,7 +23,9 @@
                 Just some info
               </p>
             </div>
-            <user-update-modal :userProfile="user.profile"/>
+            <user-update-modal 
+              :onModalSubmit="updateProfile"
+              :userProfile="user.profile"/>
           </div>
           <!-- TODO: Set activeTab variable to 'pending exchanges' and class to 'isActive' when activeTab === 'pending exchanges' -->
           <div class="stats-tab column is-2-tablet is-4-mobile has-text-centered">
@@ -100,6 +102,11 @@ export default {
   computed: {
     user() {
       return this.$store.state.auth.user
+    }
+  },
+  methods: {
+    updateProfile(profile) {
+      this.$store.dispatch('auth/updateProfile', profile)
     }
   }
 }

@@ -50,6 +50,15 @@ export default {
           commit('setAuthUser', user)
           return profile
         })
+    },
+    updateProfile({commit}, profile) {
+      return db
+        .collection('profiles')
+        .doc(profile.user)
+        .update(profile)
+        .then(_ => {
+          // Commit changes to store
+        })
     }
   },
   mutations: {
