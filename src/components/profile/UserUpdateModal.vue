@@ -54,6 +54,7 @@
     },
     data () {
       return {
+        // Copying by value lecture (:
         isOpen: false,
         profileToUpdate: {...this.userProfile}
       }
