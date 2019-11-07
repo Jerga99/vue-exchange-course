@@ -34,11 +34,22 @@ export default {
         .then(_ => commit('setAuthUser', null))
     },
     createUserProfile(_, {uid, userProfile}) {
-      debugger
       return db
         .collection('profiles')
         .doc(uid)
         .set(userProfile)
+    },
+    storeAuthUser({commit}, user) {
+      return db
+        .collection('profiles')
+        .doc(user.uid)
+        .get()
+        .then(snapshot => {
+          const profile = snapshot.data()
+          user.profile = profile
+          commit('setAuthUser', user)
+          return profile
+        })
     }
   },
   mutations: {
@@ -47,3 +58,16 @@ export default {
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -23,7 +23,7 @@
                 Just some info
               </p>
             </div>
-            <user-update-modal :user="user"/>
+            <user-update-modal :userProfile="user.profile"/>
           </div>
           <!-- TODO: Set activeTab variable to 'pending exchanges' and class to 'isActive' when activeTab === 'pending exchanges' -->
           <div class="stats-tab column is-2-tablet is-4-mobile has-text-centered">

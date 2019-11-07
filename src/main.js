@@ -22,11 +22,8 @@ Vue.config.productionTip = false
 
 let app;
 
-firebase.auth().onAuthStateChanged(user => {
-  if (user) {
-    store.commit('auth/setAuthUser', user)
-    // TODO: Fetch also user profile!
-  }
+firebase.auth().onAuthStateChanged(async user => {
+  if (user) { await store.dispatch('auth/storeAuthUser', user) }
 
   if (!app) {
     app = new Vue({
@@ -35,8 +32,6 @@ firebase.auth().onAuthStateChanged(user => {
       render: h => h(App),
     }).$mount('#app')
   }
-
-
 })
 
 

@@ -18,19 +18,19 @@
             <div class="field">
               <label class="title">Full Name</label>
               <input 
-                v-model="user.fullName"
+                v-model="profileToUpdate.fullName"
                 class="input">
             </div>
             <div class="field">
               <label class="title">Avatar</label>
               <input 
-                v-model="user.avatar"
+                v-model="profileToUpdate.avatar"
                 class="input">
             </div>
             <div class="field">
               <label class="title">Info about user</label>
               <input 
-                v-model="user.info"
+                v-model="profileToUpdate.info"
                 class="input">
             </div>
           </form>
@@ -47,14 +47,15 @@
 <script>
   export default {
     props: {
-      user: {
+      userProfile: {
         required: true,
         type: Object
       }
     },
     data () {
       return {
-        isOpen: false
+        isOpen: false,
+        profileToUpdate: {...this.userProfile}
       }
     }
   }
