@@ -22,6 +22,24 @@
                 class="input">
             </div>
             <div class="field">
+              <label class="title">Address</label>
+              <input 
+                v-model="profileToUpdate.address"
+                class="input">
+            </div>
+            <div class="field">
+              <label class="title">Country</label>
+              <input 
+                v-model="profileToUpdate.country"
+                class="input">
+            </div>
+            <div class="field">
+              <label class="title">Phone</label>
+              <input 
+                v-model="profileToUpdate.phone"
+                class="input">
+            </div>
+            <div class="field">
               <label class="title">Avatar</label>
               <input 
                 v-model="profileToUpdate.avatar"
@@ -60,14 +78,15 @@
     },
     data () {
       return {
-        // Copying by value lecture (:
         isOpen: false,
         profileToUpdate: {...this.userProfile}
       }
     },
     methods: {
       submitModal() {
-        this.onModalSubmit({...this.profileToUpdate})
+        this.onModalSubmit({...this.profileToUpdate}, () => {
+          this.isOpen = false
+        })
       }
     }
   }
