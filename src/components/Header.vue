@@ -31,6 +31,26 @@
               :key="item.text"
               :to="item.link"
               class="navbar-item nav-home">{{item.text}}</router-link>
+            <template v-if="!isAuthenticated">
+              <router-link
+                to="/login"
+                class="navbar-item nav-home">
+                Login
+              </router-link>
+              <router-link
+                to="/register"
+                class="navbar-item nav-home">
+                Register
+              </router-link>
+            </template>
+            <template v-else>
+              <a
+                @click="$store.dispatch('auth/signOut')"
+                href="#" 
+                class="navbar-item nav-home">
+                Logout
+              </a>
+            </template>
           </div>
         </div>
       </div>
