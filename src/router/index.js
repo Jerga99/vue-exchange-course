@@ -7,6 +7,7 @@ import AboutPage from '@/pages/About'
 import FaqPage from '@/pages/Faq'
 import LoginPage from '@/pages/Login'
 import RegisterPage from '@/pages/Register'
+import ProfilePage from '@/pages/Profile'
 
 Vue.use(Router)
 
@@ -36,9 +37,22 @@ const router = new Router({
       path: '/register',
       name: 'RegisterPage',
       component: RegisterPage
+    },
+    {
+      path: '/users/me',
+      name: 'ProfilePage',
+      component: ProfilePage
     }
 	],
   mode: 'history'
 })
 
 export default router
+
+
+
+
+
+
+
+
