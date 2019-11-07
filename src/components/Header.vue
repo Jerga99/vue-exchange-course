@@ -21,6 +21,11 @@
         </div>
         <div id="navbar-menu" class="navbar-menu">
           <div class="navbar-end">
+            <div
+              v-if="isAuthenticated" 
+              class="navbar-item nav-home">
+                {{user.email}}
+            </div>
             <router-link
               v-for="item in items" 
               :key="item.text"
@@ -44,6 +49,14 @@ export default {
     items: {
       type: Array,
       required: true
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.state.auth.user
+    },
+    isAuthenticated() {
+      return this.$store.getters['auth/isAuthenticated']
     }
   },
   methods: {

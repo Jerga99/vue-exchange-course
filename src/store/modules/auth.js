@@ -6,8 +6,14 @@ import { db } from '@/db'
 
 export default {
   namespaced: true,
-
-
+  state: {
+    user: null
+  },
+  getters: {
+    isAuthenticated(state) {
+      return !!state.user
+    }
+  },
   actions: {
     signUp(context, {email, password}) {
       return firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -25,6 +31,11 @@ export default {
         .collection('profiles')
         .doc(uid)
         .set(userProfile)
+    }
+  },
+  mutations: {
+    setAuthUser(state, user) {
+      state.user = user
     }
   }
 }
