@@ -6,3 +6,8 @@ NOTE: to login user on firebase you need to call: "firebase.auth().signInWithEma
 3. Dispatch this action when you clicking login button
 4. In case of error display toast message
 5. In case of success login navigate to home page
+
+
+##### Create Exchange #####
+1. Gel all values from form
+2. on submit form alert strinigified data of your form
