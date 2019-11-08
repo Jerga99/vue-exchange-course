@@ -181,8 +181,7 @@ export default {
         required
       },  
       image: {
-        url,
-        supportedFileType
+        url
       },
       price: {
         required,
@@ -206,7 +205,9 @@ export default {
       this.$v.form.$touch()
 
       if (this.isFormValid) {
-        alert(JSON.stringify(this.form))
+        this.$store.dispatch('exchange/createExchange', { ...this.form })
+          .then(_ => this.$router.push({name: 'ProfilePage'}))
+          .catch(e => console.error(e))
       }
     },
     handleTags(e) {

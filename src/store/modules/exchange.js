@@ -27,6 +27,16 @@ export default {
       // return the promise returned by `bindFirestoreRef`
       return bindFirestoreRef('items', db.collection('exchanges'))
     }),
+    createExchange({rootState}, exchange) {
+      exchange.status = 'active'
+      exchange.price = parseInt(exchange.price, 10)
+
+      const userRef = db.collection('profiles').doc(rootState.auth.user.uid)
+      exchange.user = userRef
+
+      // TODO: After exchange is created then add exchange to user profile on Firestore and also localy in Vue Store
+      return db.collection('exchanges').add(exchange)
+    }
   },
   mutations: {
     setExchanges(state, exchanges) {
