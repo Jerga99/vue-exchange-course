@@ -9,7 +9,9 @@
       :key="exchange.id"
       class="column is-12-mobile is-6-tablet is-4-widescreen is-6-desktop">
       <div class="item post-card bottom-border">
-        <a class="item-link" href="#">
+        <router-link 
+          class="item-link" 
+          :to="{ name: 'ExchangeDetailPage', params: {id: exchange.id}}">
           <!-- 2. Provide image from exchange to background-image -->
           <figure 
             class="image is-2by1 item-figure background-img" 
@@ -21,7 +23,7 @@
               <font-awesome-icon icon="star" />
             </div>
           </div>
-        </a>
+        </router-link>
         <div class="item-tags">
           <!-- 3. Iterate over exchange tags -->
           <!-- TODO: Create custom key from tag ??? -->
