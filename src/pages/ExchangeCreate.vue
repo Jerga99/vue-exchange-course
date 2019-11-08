@@ -21,6 +21,9 @@
               class="input" 
               type="text" 
               placeholder="Some Nice Product">
+            <div class="form-error">
+              <span class="help is-danger">Title is required</span>
+            </div>
           </div>
         </div>
         <div class="field">
@@ -31,6 +34,9 @@
               class="textarea" 
               placeholder="Some catchy description about product">
             </textarea>
+            <div class="form-error">
+              <span class="help is-danger">Description is required</span>
+            </div>
           </div>
         </div>
         <div class="field">
@@ -41,6 +47,9 @@
               class="input" 
               type="text" 
               placeholder="https://unsplash....">
+            <div class="form-error">
+              <span class="help is-danger">Image is required</span>
+            </div>
           </div>
         </div>
         <!-- TODO: Rename To Price -->
@@ -52,6 +61,9 @@
               class="input" 
               type="number" 
               placeholder="249">
+            <div class="form-error">
+              <span class="help is-danger">Price is required</span>
+            </div>
           </div>
         </div>
         <div class="field">
@@ -62,6 +74,9 @@
               class="input" 
               type="text" 
               placeholder="Slovakia">
+            <div class="form-error">
+              <span class="help is-danger">Country is required</span>
+            </div>
           </div>
         </div>
         <div class="field">
@@ -72,6 +87,9 @@
               class="input" 
               type="text" 
               placeholder="Bratislava">
+            <div class="form-error">
+              <span class="help is-danger">City is required</span>
+            </div>
           </div>
         </div>
 
@@ -106,6 +124,9 @@ export default {
         tags: []
       }
     }
+  },
+  validations: {
+    form: {}
   },
   methods: {
     createExchange() {
