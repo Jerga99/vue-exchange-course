@@ -62,10 +62,15 @@ a {
   font-weight: $font-weight-extra-bold;
 }
 
+
 // Navbar
 .header {
   position: absolute;
   width: 100%;
+
+  &.base-header {
+    position: inherit;
+  }
 
   .navbar {
     background: transparent;

@@ -2,9 +2,7 @@
   <div>
     <app-header 
       :items="menuItems" />
-    <div :class="$route.path === '/' ? '' : 'page-wrapper' ">
-      <router-view />
-    </div>
+    <router-view />
   </div>
 </template>
 

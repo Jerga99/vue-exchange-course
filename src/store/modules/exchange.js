@@ -6,7 +6,8 @@ export default {
   namespaced: true,
   state() {
     return {
-      items: []
+      items: [],
+      item: {}
     }
   },
   actions: {
@@ -16,7 +17,6 @@ export default {
         .doc('GLgLUAMHu7mZDkseRIqi')
         .get()
         .then(snapshot => {
-          debugger
           const exchange = snapshot.data()
           return exchange
         })
@@ -27,6 +27,17 @@ export default {
       // return the promise returned by `bindFirestoreRef`
       return bindFirestoreRef('items', db.collection('exchanges'))
     }),
+    getExchangeById({commit}, exchangeId) {
+      // Here you want to make a call to firebase and ask for data
+      return db.collection('exchanges')
+        .doc(exchangeId)
+        .get()
+        .then(snapshot => {
+          const exchange = snapshot.data()
+          commit('setExchange', exchange)
+          return exchange
+        })
+    },
     createExchange({rootState}, exchange) {
       exchange.status = 'active'
       exchange.price = parseInt(exchange.price, 10)
@@ -41,6 +52,9 @@ export default {
   mutations: {
     setExchanges(state, exchanges) {
       state.items = exchanges
+    },
+    setExchange(state, exchange) {
+      state.item = exchange
     }
   }
 }

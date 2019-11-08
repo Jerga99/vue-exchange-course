@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO: Fix displaying of previous product! -->
   <div>
     <!-- HEADER -->
     <section
@@ -11,13 +10,12 @@
           <div class="columns">
             <div class="column is-9">
               <h1 class="title">
-                {{exchange.title}}
+                Exchange title
               </h1>
               <h2 class="subtitle">
-                {{exchange.type}}
+                Product
               </h2>
 
-              <!-- TODO: Display creator of exchange -->
               <!-- <div v-if="author" class="user-tile">
                 <div class="user-tile-image">
                   <figure v-if="author.photoURL" class="image is-64x64">
@@ -35,7 +33,7 @@
                   <div class="card-image">
                     <figure class="image is-4by2">
                       <!-- Exchange Image -->
-                      <img :src="exchange.image" alt="Placeholder image">
+                      <img src="https://via.placeholder.com/350" alt="Placeholder image">
                     </figure>
                   </div>
                   <div class="card-content">
@@ -45,8 +43,7 @@
                         </span>
                         <span class="rate" v-if="exchange.type==='product'">Day</span>
                         <span class="rate" v-else>Hour</span> -->
-                        <!-- TODO: display different price rate depending on type -->
-                        <span class="title is-2">${{exchange.price}} /
+                        <span class="title is-2">$23 /
                         </span>
                         <span class="rate">Hour</span>
                       </div>
@@ -83,14 +80,14 @@
               <div class="more-details-title">
                 Details
               </div>
-              <div class="more-details-item">Country: {{exchange.country}}</div>
-              <div class="more-details-item">City: {{exchange.city}}</div>
+              <div class="more-details-item">Country: Slovakia</div>
+              <div class="more-details-item">City: Bratislava</div>
             </div>
           </div>
           <div class="section product-description p-t-none">
-            <div class="product-description-title">Exchange Info</div>
+            <div class="product-description-title">Course Info</div>
             <div class="product-description-details">
-              <p>{{exchange.description}}</p>
+              <p>Some Desc</p>
             </div>
           </div>
         </div>
@@ -98,19 +95,7 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  computed: {
-    exchange() {
-      return this.$store.state.exchange.item
-    }
-  },
-  created() {
-    const { id } = this.$route.params
-    this.$store.dispatch('exchange/getExchangeById', id)
-  }
-}
-</script>
+
 
 <style scoped lang="scss">
   // CARD

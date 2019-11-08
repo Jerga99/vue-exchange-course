@@ -18,3 +18,7 @@ NOTE: to login user on firebase you need to call: "firebase.auth().signInWithEma
 2. Apply "sameAs" validator on password confirmation
 3. Register only if form is valid
 4. Apply any validator you want
+
+##### Exchange Detail #####
+1. Get exchange by id
+2. display some of exchange informations in template
