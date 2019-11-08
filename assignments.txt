@@ -11,3 +11,10 @@ NOTE: to login user on firebase you need to call: "firebase.auth().signInWithEma
 ##### Create Exchange #####
 1. Gel all values from form
 2. on submit form alert strinigified data of your form
+
+
+##### Register Validators #####
+1. Apply all required validators
+2. Apply "sameAs" validator on password confirmation
+3. Register only if form is valid
+4. Apply any validator you want
