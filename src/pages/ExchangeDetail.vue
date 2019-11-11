@@ -1,6 +1,6 @@
 <template>
   <!-- TODO: Fix displaying of previous product! -->
-  <div>
+  <div v-if="exchange && exchange.id">
     <!-- HEADER -->
     <section
       class="hero is-black">

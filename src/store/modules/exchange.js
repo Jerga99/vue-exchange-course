@@ -29,11 +29,13 @@ export default {
     }),
     getExchangeById({commit}, exchangeId) {
       // Here you want to make a call to firebase and ask for data
+      commit('setExchange', {})
       return db.collection('exchanges')
         .doc(exchangeId)
         .get()
         .then(async snapshot => {
           const exchange = snapshot.data()
+          exchange.id = snapshot.id
           const userSnapshot = await exchange.user.get()
           exchange.user = userSnapshot.data()
           commit('setExchange', exchange)
