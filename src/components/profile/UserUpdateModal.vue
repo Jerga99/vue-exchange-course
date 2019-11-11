@@ -1,5 +1,6 @@
 <template>
   <app-modal 
+    header="Update Profile"
     :onModalSubmit="submitModal">
     <form>
       <div class="field">

@@ -47,11 +47,8 @@
                         <span class="rate" v-else>Hour</span>
                       </div>
                     </div>
-                    <a
-                      target="_"
-                      class="button is-fullwidth is-large is-danger is-outlined m-b-sm">
-                      Make a deal
-                    </a>
+                    <exchange-deal-modal 
+                      :onModalSubmit="() => {}" />
                     <div class="content">
                       <ul class="m-t-none">
                         <li>
@@ -95,7 +92,11 @@
   </div>
 </template>
 <script>
+import ExchangeDealModal from '@/components/exchange/ExchangeDealModal'
 export default {
+  components: {
+    ExchangeDealModal
+  },
   computed: {
     exchange() {
       return this.$store.state.exchange.item
