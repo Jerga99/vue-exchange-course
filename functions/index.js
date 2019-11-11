@@ -5,6 +5,23 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
+const db = admin.firestore();
+
+exports.addExchangeToProfile = functions.firestore
+  .document('exchanges/{exchangeId}')
+  .onCreate((change, context) => {
+    const { exchangeId } = context.params
+    const addedExchange = change.data()
+
+    db.collection('profiles')
+      .doc(addedExchange.user.id)
+      .update({
+        exchanges: admin.firestore.FieldValue.arrayUnion(exchangeId)
+      });
+  });
+
+
+
 // Take the text parameter passed to this HTTP endpoint and insert it into the
 // Realtime Database under the path /messages/:pushId/original
 exports.addMessage = functions.https.onRequest(async (req, res) => {

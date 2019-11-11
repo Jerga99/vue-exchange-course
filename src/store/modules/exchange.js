@@ -42,7 +42,7 @@ export default {
           return exchange
         })
     },
-    createExchange({rootState}, exchange) {
+    createExchange({rootState, commit}, exchange) {
       exchange.status = 'active'
       exchange.price = parseInt(exchange.price, 10)
 
@@ -50,7 +50,13 @@ export default {
       exchange.user = userRef
 
       // TODO: After exchange is created then add exchange to user profile on Firestore and also localy in Vue Store
-      return db.collection('exchanges').add(exchange)
+      return db
+        .collection('exchanges')
+        .add(exchange)
+        .then(docRef => {
+          commit('auth/addExchangeToUser', docRef.id, { root: true })
+          return true
+        })
     }
   },
   mutations: {
