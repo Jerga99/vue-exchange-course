@@ -48,6 +48,7 @@
                       </div>
                     </div>
                     <exchange-deal-modal 
+                      :exchange="exchange"
                       :onModalSubmit="() => {}" />
                     <div class="content">
                       <ul class="m-t-none">

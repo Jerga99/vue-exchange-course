@@ -25,7 +25,7 @@
         <footer class="modal-card-foot">
           <button 
             @click="submitModal"
-            class="button is-success">Save changes</button>
+            class="button is-success">{{submitText}}</button>
           <button @click="isOpen = false" class="button">Cancel</button>
         </footer>
       </div>
@@ -43,6 +43,10 @@
       header: {
         type: String,
         default: 'Confirmation Window'
+      },
+      submitText: {
+        type: String,
+        default: 'Save changes'
       }
     },
     data () {
