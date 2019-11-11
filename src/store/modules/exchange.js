@@ -37,7 +37,7 @@ export default {
           const exchange = snapshot.data()
           exchange.id = snapshot.id
           const userSnapshot = await exchange.user.get()
-          exchange.user = userSnapshot.data()
+          exchange.user = userSnapshot.data()          
           commit('setExchange', exchange)
           return exchange
         })
@@ -54,7 +54,8 @@ export default {
         .collection('exchanges')
         .add(exchange)
         .then(docRef => {
-          commit('auth/addExchangeToUser', docRef.id, { root: true })
+          exchange.id = docRef.id
+          commit('auth/addExchangeToUser', exchange, { root: true })
           return true
         })
     }

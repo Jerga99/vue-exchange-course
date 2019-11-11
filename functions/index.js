@@ -16,7 +16,12 @@ exports.addExchangeToProfile = functions.firestore
     db.collection('profiles')
       .doc(addedExchange.user.id)
       .update({
-        exchanges: admin.firestore.FieldValue.arrayUnion(exchangeId)
+        exchanges: admin.firestore.FieldValue.arrayUnion({
+          id: exchangeId,
+          title: addedExchange.title,
+          type: addedExchange.type,
+          price: addedExchange.price
+        })
       });
   });
 

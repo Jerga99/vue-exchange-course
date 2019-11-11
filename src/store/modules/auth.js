@@ -48,6 +48,10 @@ export default {
         .then(snapshot => {
           const profile = snapshot.data()
           user.profile = profile
+
+          if (!profile.exchanges) { user.profile.exchanges = [] }
+
+          // Optional fetch user exchanges 
           commit('setAuthUser', user)
           return profile
         })
@@ -72,8 +76,8 @@ export default {
 
       Vue.set(state.user, 'profile', profile)
     },
-    addExchangeToUser(state, exchangeId) {
-      state.user.profile.exchanges.push(exchangeId)
+    addExchangeToUser(state, exchange) {
+      state.user.profile.exchanges.push(exchange)
     }
   }
 }
