@@ -18,16 +18,16 @@
               </h2>
 
               <!-- TODO: Display creator of exchange -->
-              <!-- <div v-if="author" class="user-tile">
+              <div v-if="exchangeUser" class="user-tile">
                 <div class="user-tile-image">
-                  <figure v-if="author.photoURL" class="image is-64x64">
-                    <img class="is-rounded" :src="author.photoURL">
+                  <figure v-if="exchangeUser.avatar" class="image is-64x64">
+                    <img class="is-rounded" :src="exchangeUser.avatar">
                   </figure>
                 </div>
-                <div v-if="author.displayName" class="user-tile-author center">
-                  <h3 class="user-tile-author-name">by {{author.displayName}}</h3>
+                <div v-if="exchangeUser.fullName" class="user-tile-author center">
+                  <h3 class="user-tile-author-name">by {{exchangeUser.fullName}}</h3>
                 </div>
-              </div> -->
+              </div>
             </div>
             <div class="column is-3">
               <div class="column-right">
@@ -41,14 +41,10 @@
                   <div class="card-content">
                     <div class="content m-b-sm">
                       <div class="media-content">
-                        <!-- <span class="title is-2">${{exchange.value}} /
-                        </span>
-                        <span class="rate" v-if="exchange.type==='product'">Day</span>
-                        <span class="rate" v-else>Hour</span> -->
-                        <!-- TODO: display different price rate depending on type -->
                         <span class="title is-2">${{exchange.price}} /
                         </span>
-                        <span class="rate">Hour</span>
+                        <span class="rate" v-if="exchange.type==='product'">Day</span>
+                        <span class="rate" v-else>Hour</span>
                       </div>
                     </div>
                     <a
@@ -103,6 +99,9 @@ export default {
   computed: {
     exchange() {
       return this.$store.state.exchange.item
+    },
+    exchangeUser() {
+      return this.exchange.user || {}
     }
   },
   created() {
