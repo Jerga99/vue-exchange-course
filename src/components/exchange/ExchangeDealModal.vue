@@ -47,8 +47,10 @@
             </div>
           </div>
         </div>
-        {{offeredPrice}}
+        <div v-if="selectedExchange">Your price is: <span class="deal-highlight">{{selectedExchange.price$}}</span></div>
+        <div v-if="percentDifference !== null" :class="`price price-${percentDifferenceClass}`">{{priceDifferenceText}}</div>
       </div>
+      <i>Allowed difference is not less than {{ALLOWED_DIFFERENCE}}%</i>
     </div>
     <template #openingElement>
       <a
@@ -82,7 +84,8 @@
       return {
         isOfferingCredit: false,
         selectedExchange: null,
-        selectedCredit: null
+        selectedCredit: null,
+        ALLOWED_DIFFERENCE: 20
       }
     },
     computed: {
@@ -90,6 +93,24 @@
         if (this.isOfferingCredit) { return this.selectedCredit }
 
         return this.selectedExchange && this.selectedExchange.price
+      },
+      percentDifference() {
+        if (!this.offeredPrice) { return null }
+
+        const priceDifference = this.offeredPrice - this.exchange.price
+        return (priceDifference / this.exchange.price) * 100
+      },
+      priceDifferenceText() {
+        if (this.percentDifference === null) { return "" } 
+        if (this.percentDifference === 0) { return "You are offering the exact same amount" }
+
+        const roundedPercentDifference = Math.round(this.percentDifference * 100) / 100
+        const differenceText = this.percentDifference > 0 ? 'Higher' : 'Lower'
+
+        return `Offered price is ${roundedPercentDifference}% ${differenceText} than exchange price`
+      },
+      percentDifferenceClass() {
+        return this.percentDifference >= -this.ALLOWED_DIFFERENCE ? 'allowed' : 'declined'
       }
     },
     methods: {
@@ -100,6 +121,18 @@
 </script>
 
 <style scoped lang="scss">
+  .price {
+    padding: 7px;
+
+    &-allowed {
+      background-color: #cdeacd;
+    }
+
+    &-declined {
+      background-color: #ffc2c2;
+    }
+  }
+
   .deal-wrapper {
     margin-bottom: 10px
   }
