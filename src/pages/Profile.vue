@@ -112,6 +112,7 @@ export default {
   },
   created() {
     this.$store.dispatch('opportunity/getOpportunities')
+    this.$store.dispatch('opportunity/getSendOpportunities')
   },
   methods: {
     updateProfile(profile, closeModal) {

@@ -55,6 +55,25 @@ export default {
           commit('setOpportunities', {resource: 'opportunities', opportunities})
           return opportunities
         })
+    },
+    getSendOpportunities({rootState, commit}) {
+      const { uid } = rootState.auth.user
+      if (!uid) return Promise.reject('User is not logged in!')
+
+      return db
+        .collection('opportunities')
+        .where('fromUser.id', '==', uid)
+        .get()
+        .then(async snapshot => {
+          const opportunities = await Promise.all(
+            snapshot.docs.map(doc => 
+              extractDataFromOpportunity({id: doc.id, opportunity: doc.data()})
+            )
+          )
+
+          commit('setOpportunities', {resource: 'sendOpportunities', opportunities})
+          return opportunities
+        })
     }
   },
   mutations: {
