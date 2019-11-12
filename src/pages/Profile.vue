@@ -28,15 +28,21 @@
               :userProfile="user.profile"/>
           </div>
           <!-- TODO: Set activeTab variable to 'pending exchanges' and class to 'isActive' when activeTab === 'pending exchanges' -->
-          <div class="stats-tab column is-2-tablet is-4-mobile has-text-centered">
+          <div
+            @click="selectedOpportunities = 'received'"
+            :class="{'is-active': selectedOpportunities === 'received'}"
+            class="stats-tab column is-2-tablet is-4-mobile has-text-centered">
             <p class="stat-val">Received</p>
-            <p class="stat-key">Exchanges</p>
+            <p class="stat-key">Opportunities</p>
           </div>
 
           <!-- TODO: Set activeTab variable to 'sent exchanges' and class to 'isActive' when activeTab === 'sent exchanges' -->
-          <div class="stats-tab column is-2-tablet is-4-mobile has-text-centered">
+          <div 
+            @click="selectedOpportunities = 'sent'"
+            :class="{'is-active': selectedOpportunities === 'sent'}"
+            class="stats-tab column is-2-tablet is-4-mobile has-text-centered">
             <p class="stat-val">Sent</p>
-            <p class="stat-key">Exchanges</p>
+            <p class="stat-key">Opportunities</p>
           </div>
 
           <!-- TODO: Set activeTab variable to 'accepted exchanges' and class to 'isActive' when activeTab === 'accepted exchanges' -->
@@ -46,8 +52,60 @@
           </div>
         </div>
       </div>
-      <!-- TODO: Display this div when activeTab === 'exchanges pending' -->
-      <div class="columns is-mobile is-multiline">
+      <div 
+        v-if="selectedOpportunities === 'received'"
+        class="columns is-mobile is-multiline">
+        <!-- TODO: Iterate over exchanges -->
+        <template v-if="opportunities && opportunities.length > 0">
+          <div 
+            v-for="opportunity in opportunities"
+            :key="opportunity.id"
+            class="column is-3-tablet is-6-mobile">
+            <!-- Exchanges -->
+            <div class="card">
+              <div v-if="opportunity.fromExchange" class="card-image">
+                <figure class="image is-4by3">
+                  <!-- TODO: Display Exchange Image -->
+                  <img :src="opportunity.fromExchange.image"/>
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <!-- TODO: Display Exchange title -->
+                    <p class="title is-4">{{opportunity.title}}</p>
+                    <!-- TODO: Display Exchange type name -->
+                    <p class="subtitle is-6">
+                      <span v-if="opportunity.fromExchange" class="tag is-dark subtitle">{{opportunity.fromExchange.type}}</span>
+                      <span v-else class="tag is-dark subtitle">Cash</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="content">
+                  <!-- TODO: Display exchange shortInfo -->
+                  <p v-if="opportunity.fromExchange">
+                    {{opportunity.fromExchange.description}}
+                  </p>
+                  <p v-else>
+                    User wants to exchange your item for cash
+                  </p>
+                </div>
+              </div>
+              <footer class="card-footer">
+                <router-link to="/" class="card-footer-item">Accept</router-link>
+                <a class="card-footer-item delete-item">Decline</a>
+              </footer>
+            </div>
+            <br/>
+          </div>
+        </template>
+        <div v-else class="stats-error">
+          No pending opportunities :(
+        </div>
+      </div>
+      <div 
+        v-if="selectedOpportunities === 'sent'"
+        class="columns is-mobile is-multiline">
         <!-- TODO: Iterate over exchanges -->
         <template>
           <div class="column is-3-tablet is-6-mobile">
@@ -63,7 +121,7 @@
                 <div class="media">
                   <div class="media-content">
                     <!-- TODO: Display Exchange title -->
-                    <p class="title is-4">Some Title</p>
+                    <p class="title is-4">Sent Opportunit</p>
                     <!-- TODO: Display Exchange type name -->
                     <p class="subtitle is-6">
                       <span class="tag is-dark subtitle">Product</span>
@@ -73,7 +131,7 @@
                 <div class="content">
                   <!-- TODO: Display exchange shortInfo -->
                   <p>
-                    Just some short info
+                    Sent Opportunit
                   </p>
                 </div>
               </div>
@@ -99,6 +157,11 @@ export default {
   components: {
     UserUpdateModal
   },
+  data() {
+    return {
+      selectedOpportunities: 'received'
+    }
+  },
   computed: {
     user() {
       return this.$store.state.auth.user
@@ -108,6 +171,9 @@ export default {
     },
     opportunities() {
       return this.$store.state.opportunity.opportunities
+    },
+    sendOpportunities() {
+      return this.$store.state.opportunity.sendOpportunities
     }
   },
   created() {
@@ -151,7 +217,7 @@ export default {
     border-bottom: 2px solid black;
   }
 
-  .stats-tab.isActive {
+  .stats-tab.is-active {
     border-bottom: 2px solid black;
   }
 
