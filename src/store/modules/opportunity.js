@@ -2,6 +2,19 @@
 import { db, Timestamp } from '@/db'
 
 
+const extractDataFromOpportunity = async ({id, opportunity}) => {
+  if (opportunity.fromExchange) {
+    const fromExchange = await opportunity.fromExchange.get()
+    opportunity.fromExchange = fromExchange.data()
+  }
+
+  const toExchange = await opportunity.toExchange.get()
+  opportunity.toExchange = toExchange.data()
+  opportunity.id = id
+  return opportunity
+}
+
+
 export default {
   namespaced: true,
   state: {
@@ -32,11 +45,12 @@ export default {
         .collection('opportunities')
         .where('toUser', "==", userRef)
         .get()
-        .then(snapshot => {
-          const opportunities = 
-            snapshot.docs.map(doc => {
-              return {...doc.data(), id: doc.id }
-            })
+        .then(async snapshot => {
+          const opportunities = await Promise.all(
+            snapshot.docs.map(doc => 
+              extractDataFromOpportunity({id: doc.id, opportunity: doc.data()})
+            )
+          )
 
           commit('setOpportunities', {resource: 'opportunities', opportunities})
           return opportunities
