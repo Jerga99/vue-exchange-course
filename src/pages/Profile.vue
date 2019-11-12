@@ -106,46 +106,48 @@
       <div 
         v-if="selectedOpportunities === 'sent'"
         class="columns is-mobile is-multiline">
-        <!-- TODO: Iterate over exchanges -->
-        <template>
-          <div class="column is-3-tablet is-6-mobile">
+        <template v-if="sendOpportunities && sendOpportunities.length > 0">
+          <div
+            v-for="sOpportunity in sendOpportunities"
+            :key="sOpportunity.id" 
+            class="column is-3-tablet is-6-mobile">
             <!-- Exchanges -->
             <div class="card">
               <div class="card-image">
                 <figure class="image is-4by3">
                   <!-- TODO: Display Exchange Image -->
-                  <img src="https://placehold.it/300x225"/>
+                  <img :src="sOpportunity.toExchange.image"/>
                 </figure>
               </div>
               <div class="card-content">
                 <div class="media">
                   <div class="media-content">
                     <!-- TODO: Display Exchange title -->
-                    <p class="title is-4">Sent Opportunit</p>
+                    <p class="title is-4">{{sOpportunity.toExchange.title}}</p>
                     <!-- TODO: Display Exchange type name -->
                     <p class="subtitle is-6">
-                      <span class="tag is-dark subtitle">Product</span>
+                      <span class="tag is-dark subtitle">{{sOpportunity.toExchange.type}}</span>
                     </p>
                   </div>
                 </div>
                 <div class="content">
                   <!-- TODO: Display exchange shortInfo -->
                   <p>
-                    Sent Opportunit
+                    {{sOpportunity.toExchange.description}}
                   </p>
                 </div>
               </div>
-              <footer class="card-footer">
+              <!-- <footer class="card-footer">
                 <router-link to="/" class="card-footer-item">Accept</router-link>
                 <a class="card-footer-item delete-item">Decline</a>
-              </footer>
+              </footer> -->
             </div>
             <br/>
           </div>
         </template>
-        <!-- <div v-else class="stats-error">
-          No  pending exchanges :(
-        </div> -->
+        <div v-else class="stats-error">
+          No send opportunities :(
+        </div>
       </div>
     </div>
   </div>
