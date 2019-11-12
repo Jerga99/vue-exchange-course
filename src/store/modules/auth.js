@@ -13,6 +13,12 @@ export default {
   getters: {
     isAuthenticated(state) {
       return !!state.user
+    },
+    isExchangeOwner: state => exchangeOwnerId => {
+      debugger
+      return state.user &&
+             exchangeOwnerId &&
+             state.user.uid === exchangeOwnerId
     }
   },
   actions: {

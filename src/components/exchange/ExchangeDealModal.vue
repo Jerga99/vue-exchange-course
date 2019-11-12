@@ -1,6 +1,7 @@
 <template>
    <app-modal
     :onModalSubmit="submitModal"
+    :isSubmitButtonEnabled="isAllowedPrice"
     submitText="Comfirm">
     <div class="deal">
       <!-- TODO: replace by actual name -->
@@ -109,8 +110,12 @@
 
         return `Offered price is ${roundedPercentDifference}% ${differenceText} than exchange price`
       },
+      isAllowedPrice() {
+        if (!this.offeredPrice) { return false }
+        return this.percentDifference >= -this.ALLOWED_DIFFERENCE
+      },
       percentDifferenceClass() {
-        return this.percentDifference >= -this.ALLOWED_DIFFERENCE ? 'allowed' : 'declined'
+        return this.isAllowedPrice ? 'allowed' : 'declined'
       }
     },
     methods: {

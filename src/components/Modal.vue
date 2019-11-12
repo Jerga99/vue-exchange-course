@@ -25,6 +25,7 @@
         <footer class="modal-card-foot">
           <button 
             @click="submitModal"
+            :disabled="!isSubmitButtonEnabled"
             class="button is-success">{{submitText}}</button>
           <button @click="isOpen = false" class="button">Cancel</button>
         </footer>
@@ -47,6 +48,10 @@
       submitText: {
         type: String,
         default: 'Save changes'
+      },
+      isSubmitButtonEnabled: {
+        type: Boolean,
+        default: true
       }
     },
     data () {
