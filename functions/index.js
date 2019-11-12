@@ -26,6 +26,42 @@ exports.addExchangeToProfile = functions.firestore
   });
 
 
+exports.addOpportunityToSendOnes = functions.firestore
+  .document('opportunities/{opportunityId}')
+  .onCreate((change, context) => {
+    const { opportunityId } = context.params
+    const addedOpportunity = change.data()
+
+    db.collection('profiles')
+      .doc(addedOpportunity.fromUser.id)
+      .update({
+        sendOpportunities: admin.firestore.FieldValue.arrayUnion({
+          id: opportunityId,
+          title: addedOpportunity.title,
+          exchangeTo: addedOpportunity.toExchange,
+          status: addedOpportunity.status
+        })
+      });
+  });
+
+exports.addOpportunityToUser = functions.firestore
+  .document('opportunities/{opportunityId}')
+  .onCreate((change, context) => {
+    const { opportunityId } = context.params
+    const addedOpportunity = change.data()
+
+    db.collection('profiles')
+      .doc(addedOpportunity.toUser.id)
+      .update({
+        opportunities: admin.firestore.FieldValue.arrayUnion({
+          id: opportunityId,
+          title: addedOpportunity.title,
+          status: addedOpportunity.status
+        })
+      });
+  });
+
+
 
 // Take the text parameter passed to this HTTP endpoint and insert it into the
 // Realtime Database under the path /messages/:pushId/original
