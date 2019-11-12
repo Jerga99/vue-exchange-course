@@ -76,8 +76,7 @@
                     <p class="title is-4">{{opportunity.title}}</p>
                     <!-- TODO: Display Exchange type name -->
                     <p class="subtitle is-6">
-                      <span v-if="opportunity.fromExchange" class="tag is-dark subtitle">{{opportunity.fromExchange.type}}</span>
-                      <span v-else class="tag is-dark subtitle">Cash</span>
+                      <span class="tag is-dark subtitle">{{opportunity.status}}</span>
                     </p>
                   </div>
                 </div>
@@ -92,8 +91,9 @@
                 </div>
               </div>
               <footer class="card-footer">
-                <router-link to="/" class="card-footer-item">Accept</router-link>
-                <a class="card-footer-item delete-item">Decline</a>
+                <!-- <router-link to="/" class="card-footer-item">Accept</router-link>
+                <a class="card-footer-item delete-item">Decline</a> -->
+                <opportunity-deal-modal :opportunity="opportunity" />
               </footer>
             </div>
             <br/>
@@ -126,7 +126,7 @@
                     <p class="title is-4">{{sOpportunity.toExchange.title}}</p>
                     <!-- TODO: Display Exchange type name -->
                     <p class="subtitle is-6">
-                      <span class="tag is-dark subtitle">{{sOpportunity.toExchange.type}}</span>
+                      <span class="tag is-dark subtitle">{{sOpportunity.status}}</span>
                     </p>
                   </div>
                 </div>
@@ -154,10 +154,11 @@
 </template>
 <script>
 import UserUpdateModal from '@/components/profile/UserUpdateModal'
+import OpportunityDealModal from '@/components/opportunity/OpportunityDealModal'
 
 export default {
   components: {
-    UserUpdateModal
+    UserUpdateModal, OpportunityDealModal
   },
   data() {
     return {

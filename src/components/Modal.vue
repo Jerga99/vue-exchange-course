@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-modal">
     <div 
       v-if="$slots.openingElement"
       @click="isOpen = true" >
@@ -23,11 +23,17 @@
           <slot />
         </section>
         <footer class="modal-card-foot">
-          <button 
-            @click="submitModal"
-            :disabled="!isSubmitButtonEnabled"
-            class="button is-success">{{submitText}}</button>
+          <div 
+            v-if="$slots.footerElement">
+            <slot name="footerElement" />
+          </div>
+          <div v-else>
+            <button 
+              @click="submitModal"
+              :disabled="!isSubmitButtonEnabled"
+              class="button is-success">{{submitText}}</button>
           <button @click="isOpen = false" class="button">Cancel</button>
+          </div>
         </footer>
       </div>
     </div>
@@ -38,7 +44,7 @@
   export default {
     props: {
       onModalSubmit: {
-        required: true,
+        required: false,
         type: Function
       },
       header: {
@@ -67,8 +73,10 @@
   }
 </script>
 
-<style>
-
+<style scoped>
+  .app-modal {
+    width: 100%;
+  }
 </style>
 
 
