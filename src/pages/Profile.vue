@@ -105,7 +105,13 @@ export default {
     },
     profile() {
       return this.user.profile || {}
+    },
+    opportunities() {
+      return this.$store.state.opportunity.opportunities
     }
+  },
+  created() {
+    this.$store.dispatch('opportunity/getOpportunities')
   },
   methods: {
     updateProfile(profile, closeModal) {
