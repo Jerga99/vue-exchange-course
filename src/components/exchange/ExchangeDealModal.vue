@@ -65,6 +65,7 @@
 
 <script>
   import AppModal from '@/components/Modal'
+  import { db } from '@/db'
   export default {
     components: { AppModal },
     props: {
@@ -78,6 +79,10 @@
       },
       offeredExchanges: {
         type: Array,
+        required: true
+      },
+      fromUser: {
+        type: Object,
         required: true
       }
     },
@@ -120,6 +125,24 @@
     },
     methods: {
       submitModal(closeCallback) {
+        const opportunity = {
+          title: this.exchange.title,
+          toExchange: db.doc('exchanges/' + this.exchange.id),
+          toUser: db.doc('profiles/' + this.exchange.user.id),
+          fromUser: {
+            id: this.fromUser.uid,
+            name: this.fromUser.profile.fullName,
+            avatar: this.fromUser.profile.avatar
+          }
+        }
+
+        if (this.isOfferingCredit) {
+          opportunity.fromExchangeCash = parseInt(this.selectedCredit, 10)
+        } else {
+          opportunity.fromExchange = db.doc('exchanges/' + this.selectedExchange.id)
+        }
+
+        // TODO: Dispatch action to create Opportunity in DB
       }
     }
   }

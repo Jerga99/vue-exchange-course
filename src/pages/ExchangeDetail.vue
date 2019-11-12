@@ -51,7 +51,8 @@
                       v-if="canCreateExchange"
                       :exchange="exchange"
                       :offeredExchanges="authUserExchanges"
-                      :onModalSubmit="() => {}" />
+                      :onModalSubmit="() => {}"
+                      :fromUser="authUser" />
                     <router-link
                       v-if="!isAuth"
                       to="/login"
