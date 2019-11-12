@@ -15,7 +15,6 @@ export default {
       return !!state.user
     },
     isExchangeOwner: state => exchangeOwnerId => {
-      debugger
       return state.user &&
              exchangeOwnerId &&
              state.user.uid === exchangeOwnerId
@@ -56,6 +55,7 @@ export default {
           user.profile = profile
 
           if (!profile.exchanges) { user.profile.exchanges = [] }
+          if (!profile.sendOpportunities) { user.profile.sendOpportunities = [] }
 
           // Optional fetch user exchanges 
           commit('setAuthUser', user)
@@ -84,6 +84,9 @@ export default {
     },
     addExchangeToUser(state, exchange) {
       state.user.profile.exchanges.push(exchange)
+    },
+    addOpportunityToUser(state, opportunity) {
+      state.user.profile.sendOpportunities.push(opportunity)
     }
   }
 }

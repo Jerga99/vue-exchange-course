@@ -142,7 +142,12 @@
           opportunity.fromExchange = db.doc('exchanges/' + this.selectedExchange.id)
         }
 
-        // TODO: Dispatch action to create Opportunity in DB
+        this.$store.dispatch('opportunity/createOpportunity', opportunity)
+          .then(_ => {
+            closeCallback()
+            this.$toasted.success('Opportunity has been succesfuly created!', { duration: 3000 })
+          })
+          .catch(e => console.error(e))
       }
     }
   }
