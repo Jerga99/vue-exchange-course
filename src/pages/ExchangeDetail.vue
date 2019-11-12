@@ -49,6 +49,7 @@
                     </div>
                     <exchange-deal-modal 
                       :exchange="exchange"
+                      :offeredExchanges="authUserExchanges"
                       :onModalSubmit="() => {}" />
                     <div class="content">
                       <ul class="m-t-none">
@@ -104,6 +105,12 @@ export default {
     },
     exchangeUser() {
       return this.exchange.user || {}
+    },
+    authUser() {
+      return this.$store.state.auth.user
+    },
+    authUserExchanges() {
+      return this.authUser && this.authUser.profile.exchanges
     }
   },
   created() {
