@@ -140,7 +140,8 @@ export default {
              userProfile: {
               fullName: this.form.fullName,
               avatar: this.form.avatar,
-              user: user.uid
+              user: user.uid,
+              credit: 50
              }})
           this.$router.push('/')
         }).catch(errorMessage => {

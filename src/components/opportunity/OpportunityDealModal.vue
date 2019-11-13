@@ -1,5 +1,6 @@
 <template>
   <app-modal
+    ref="appModal"
     :header="headerText"
     submitText="Accept Deal">
     <div>
@@ -65,6 +66,7 @@
         @click="declineOpportunity(opportunity)"
         class="button is-danger">Decline Deal</button>
       <button
+        @click="() => modal.close()"
         class="button">Close</button>
     </template>
   </app-modal>
@@ -82,6 +84,9 @@ export default {
       return this.opportunity.fromExchange 
         ? `Here is an offer for a ${this.opportunity.fromExchange.type}`
         : 'Here is an offer for credits'
+    },
+    modal() {
+      return this.$refs.appModal
     }
   },
   methods: {

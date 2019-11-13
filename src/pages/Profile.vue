@@ -31,7 +31,7 @@
           <div
             @click="selectedOpportunities = 'received'"
             :class="{'is-active': selectedOpportunities === 'received'}"
-            class="stats-tab column is-2-tablet is-4-mobile has-text-centered">
+            class="stats-tab stats-tab-interactive column is-2-tablet is-4-mobile has-text-centered">
             <p class="stat-val">Received</p>
             <p class="stat-key">Opportunities</p>
           </div>
@@ -40,15 +40,15 @@
           <div 
             @click="selectedOpportunities = 'sent'"
             :class="{'is-active': selectedOpportunities === 'sent'}"
-            class="stats-tab column is-2-tablet is-4-mobile has-text-centered">
+            class="stats-tab stats-tab-interactive column is-2-tablet is-4-mobile has-text-centered">
             <p class="stat-val">Sent</p>
             <p class="stat-key">Opportunities</p>
           </div>
 
           <!-- TODO: Set activeTab variable to 'accepted exchanges' and class to 'isActive' when activeTab === 'accepted exchanges' -->
           <div class="stats-tab column is-2-tablet is-4-mobile has-text-centered">
-            <p class="stat-val">Accepted</p>
-            <p class="stat-key">Exchanges</p>
+            <p class="stat-val">{{profile.credit}}</p>
+            <p class="stat-key">Credits</p>
           </div>
         </div>
       </div>
@@ -195,7 +195,7 @@ export default {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .user-info {
     margin-bottom: 10px;
   }
@@ -213,15 +213,17 @@ export default {
   .stats-tab {
     border-bottom: 2px solid transparent;
     transition: 0.5s;
-  }
 
-  .stats-tab:hover {
-    cursor: pointer;
-    border-bottom: 2px solid black;
-  }
+    &-interactive {
+      &:hover {
+        cursor: pointer;
+        border-bottom: 2px solid black;
+      }
+    }
 
-  .stats-tab.is-active {
-    border-bottom: 2px solid black;
+    &.is-active {
+      border-bottom: 2px solid black;
+    }
   }
 
   .stat-val {

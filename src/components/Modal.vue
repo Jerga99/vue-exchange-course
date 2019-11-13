@@ -15,7 +15,7 @@
         <header class="modal-card-head">
           <p class="modal-card-title">{{header}}</p>
           <button
-            @click="isOpen = false"
+            @click="close"
             class="delete"
             aria-label="close"></button>
         </header>
@@ -32,7 +32,7 @@
               @click="submitModal"
               :disabled="!isSubmitButtonEnabled"
               class="button is-success">{{submitText}}</button>
-          <button @click="isOpen = false" class="button">Cancel</button>
+          <button @click="close" class="button">Cancel</button>
           </div>
         </footer>
       </div>
@@ -68,6 +68,9 @@
     methods: {
       submitModal() {
         this.onModalSubmit(() => this.isOpen = false)
+      },
+      close() {
+        this.isOpen = false
       }
     }
   }
