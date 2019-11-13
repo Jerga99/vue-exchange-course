@@ -85,6 +85,10 @@ export default {
         }).then(_ => {
           commit('changeOpportunityStatus', {id: opportunity.id, status: 'accepted'})
           commit('auth/changeOpportunityStatus', {id: opportunity.id, status: 'accepted'}, { root: true })
+
+          if (opportunity.fromExchangeCash) {
+            commit('auth/incrementUserCredit', opportunity.fromExchangeCash, { root: true })
+          }
           return true
         })
     },

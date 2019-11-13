@@ -76,7 +76,13 @@
                     <p class="title is-4">{{opportunity.title}}</p>
                     <!-- TODO: Display Exchange type name -->
                     <p class="subtitle is-6">
-                      <span class="tag is-dark subtitle">{{opportunity.status}}</span>
+                      <span 
+                        :class="[
+                          {'is-success': opportunity.status === 'accepted'},
+                          {'is-danger': opportunity.status === 'declined'},
+                          {'is-warning': opportunity.status === 'pending'}
+                        ]"
+                        class="tag is-dark subtitle">{{opportunity.status}}</span>
                     </p>
                   </div>
                 </div>
@@ -126,7 +132,13 @@
                     <p class="title is-4">{{sOpportunity.toExchange.title}}</p>
                     <!-- TODO: Display Exchange type name -->
                     <p class="subtitle is-6">
-                      <span class="tag is-dark subtitle">{{sOpportunity.status}}</span>
+                      <span
+                         :class="[
+                          {'is-success': sOpportunity.status === 'accepted'},
+                          {'is-danger': sOpportunity.status === 'declined'},
+                          {'is-warning': sOpportunity.status === 'pending'}
+                         ]"
+                         class="tag is-dark subtitle">{{sOpportunity.status}}</span>
                     </p>
                   </div>
                 </div>

@@ -91,6 +91,11 @@ export default {
     changeOpportunityStatus(state, {id, status}) {
       const index = state.user.profile.opportunities.findIndex(o => o.id === id)
       Vue.set(state.user.profile.opportunities[index], 'status', status)
+    },
+    incrementUserCredit(state, creditToIncrease) {
+      const newCredit = state.user.profile.credit + creditToIncrease
+
+      Vue.set(state.user.profile, 'credit', newCredit)
     }
   }
 }
