@@ -63,6 +63,82 @@ exports.addOpportunityToUser = functions.firestore
 
 
 
+exports.updateOpportunityOnUser = functions.firestore
+  .document('opportunities/{opportunityId}')
+  .onUpdate((change, context) => {
+    const { opportunityId } = context.params
+    const beforeOpportunity = change.before.data()
+    const addedOpportunity = change.after.data()
+
+    if (beforeOpportunity.status !== addedOpportunity.status) {
+      const dataToUpdate = {
+        opportunities: admin.firestore.FieldValue.arrayUnion({
+          id: opportunityId,
+          title: addedOpportunity.title,
+          status: addedOpportunity.status
+        })
+      }
+    
+
+    if (addedOpportunity.status === 'accepted' && addedOpportunity.fromExchangeCash) {
+      dataToUpdate.credit = admin.firestore.FieldValue.increment(addedOpportunity.fromExchangeCash)
+    }
+
+    return db.collection('profiles')
+      .doc(addedOpportunity.toUser.id)
+      .update({
+        opportunities: admin.firestore.FieldValue.arrayRemove({
+          id: opportunityId,
+          title: beforeOpportunity.title,
+          status: beforeOpportunity.status
+        })
+      }).then(_ => {
+        return db
+          .collection('profiles')
+          .doc(addedOpportunity.toUser.id)
+          .update(dataToUpdate)
+      }).catch(e => console.log(e))
+    }
+
+    
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Take the text parameter passed to this HTTP endpoint and insert it into the
 // Realtime Database under the path /messages/:pushId/original
 exports.addMessage = functions.https.onRequest(async (req, res) => {
