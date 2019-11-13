@@ -71,6 +71,13 @@ export default {
           commit('setUserProfile', profile)
           return true
         })
+    },
+    getUserById(_, userId) {
+      return db
+        .collection('profiles')
+        .doc(userId)
+        .get()
+        .then(snapshot => ({...snapshot.data(), id: snapshot.id}))
     }
   },
   mutations: {

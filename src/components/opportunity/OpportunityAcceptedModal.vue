@@ -3,9 +3,9 @@
     :onModalOpen="fetchUserContact"
     :hideFooter="true"
     header="Accepted Opportunity">
-    <div>
-      <h1>You have accepted deal with user "Some User"</h1>
-      <div class="catcher">Call "Some User" on phone: <span class="phone-number">31273621</span></div>
+    <div v-if="userToContact && userToContact.id">
+      <h1>You have accepted deal with user "{{userToContact.fullName}}"</h1>
+      <div class="catcher">Call "{{userToContact.fullName}}" on phone: <span class="phone-number">{{userToContact.phone}}</span></div>
     </div>
     <template #openingElement>
       <button class="button is-primary is-fullwidth">Contact User</button>
@@ -19,9 +19,18 @@ export default {
   components: {
     AppModal
   },
+  props: ['userId'],
+  data() {
+    return {
+      userToContact: {}
+    }
+  },
   methods: {
     fetchUserContact() {
-      alert('Fetching User Info..... (:')
+      if (this.userId === this.userToContact.id) { return }
+
+      this.$store.dispatch('auth/getUserById', this.userId)
+        .then(user => this.userToContact = user)
     }
   }
 }

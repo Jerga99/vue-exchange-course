@@ -103,7 +103,8 @@
                   v-if="opportunity.status === 'pending'"
                   :opportunity="opportunity" />
                 <opportunity-accepted-modal
-                  v-if="opportunity.status === 'accepted'" />
+                  v-if="opportunity.status === 'accepted'"
+                  :userId="opportunity.fromUser.id" />
               </footer>
             </div>
             <br/>
@@ -153,10 +154,11 @@
                   </p>
                 </div>
               </div>
-              <!-- <footer class="card-footer">
-                <router-link to="/" class="card-footer-item">Accept</router-link>
-                <a class="card-footer-item delete-item">Decline</a>
-              </footer> -->
+              <footer class="card-footer">
+                <opportunity-accepted-modal
+                  v-if="sOpportunity.status === 'accepted'"
+                  :userId="sOpportunity.toUser.id" />
+              </footer>
             </div>
             <br/>
           </div>
