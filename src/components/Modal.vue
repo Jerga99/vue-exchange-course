@@ -2,12 +2,12 @@
   <div class="app-modal">
     <div 
       v-if="$slots.openingElement"
-      @click="isOpen = true" >
+      @click="open" >
       <slot name="openingElement" />
     </div>
     <button
       v-else 
-      @click="isOpen = true" 
+      @click="open" 
       class="button is-primary is-outlined m-t-sm">Update Info</button>
     <div :class="['modal', {'is-active': isOpen}]">
       <div class="modal-background"></div>
@@ -22,7 +22,9 @@
         <section class="modal-card-body">
           <slot />
         </section>
-        <footer class="modal-card-foot">
+        <footer 
+          v-if="!hideFooter"
+          class="modal-card-foot">
           <div 
             v-if="$slots.footerElement">
             <slot name="footerElement" />
@@ -58,6 +60,14 @@
       isSubmitButtonEnabled: {
         type: Boolean,
         default: true
+      },
+      hideFooter: {
+        type: Boolean,
+        default: false
+      },
+      onModalOpen: {
+        type: Function,
+        required: false
       }
     },
     data () {
@@ -71,6 +81,10 @@
       },
       close() {
         this.isOpen = false
+      },
+      open() {
+        this.onModalOpen && this.onModalOpen()
+        this.isOpen = true
       }
     }
   }

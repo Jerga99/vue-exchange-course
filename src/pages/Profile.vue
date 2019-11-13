@@ -99,7 +99,11 @@
               <footer class="card-footer">
                 <!-- <router-link to="/" class="card-footer-item">Accept</router-link>
                 <a class="card-footer-item delete-item">Decline</a> -->
-                <opportunity-deal-modal :opportunity="opportunity" />
+                <opportunity-deal-modal 
+                  v-if="opportunity.status === 'pending'"
+                  :opportunity="opportunity" />
+                <opportunity-accepted-modal
+                  v-if="opportunity.status === 'accepted'" />
               </footer>
             </div>
             <br/>
@@ -167,10 +171,13 @@
 <script>
 import UserUpdateModal from '@/components/profile/UserUpdateModal'
 import OpportunityDealModal from '@/components/opportunity/OpportunityDealModal'
+import OpportunityAcceptedModal from '@/components/opportunity/OpportunityAcceptedModal'
 
 export default {
   components: {
-    UserUpdateModal, OpportunityDealModal
+    UserUpdateModal, 
+    OpportunityDealModal,
+    OpportunityAcceptedModal
   },
   data() {
     return {
