@@ -7,18 +7,27 @@ export default {
   state() {
     return {
       items: [],
-      item: {}
+      item: {},
+      pagination: {
+        itemCount: 3,
+        lastItem: null,
+        previousFirstItems: [],
+        isFetchingData: false
+      }
     }
   },
   actions: {
-    getExchanges() {
-      // Here you want to make a call to firebase and ask for data
-      db.collection('exchanges')
-        .doc('GLgLUAMHu7mZDkseRIqi')
+    getExchanges({commit, state}) {
+     return db
+        .collection('exchanges')
+        .limit(state.pagination.itemCount)
         .get()
-        .then(snapshot => {
-          const exchange = snapshot.data()
-          return exchange
+        .then(snapshots => {
+          const exchanges = snapshots.docs.map(doc => ({...doc.data(), id: doc.id}))
+          commit('setExchanges', exchanges)
+          commit('setLastItem', exchanges[exchanges.length - 1])
+          commit('setPreviousFirstItem', exchanges[0])
+          return exchanges
         })
 
       // commit('setExchanges', exchanges)
@@ -67,6 +76,12 @@ export default {
     },
     setExchange(state, exchange) {
       state.item = exchange
+    },
+    setLastItem(state, item) {
+      state.pagination.lastItem = item
+    },
+    setPreviousFirstItem(state, item) {
+      state.pagination.previousFirstItems.push(item)
     }
   }
 }

@@ -9,9 +9,6 @@
           :exchanges="exchanges" />
       </div>
     </section>
-    <button
-      @click="$store.dispatch('test')" 
-      class="button is-primary">Test Vuex</button>
     <pagination />
   </div>
 </template>
@@ -28,7 +25,7 @@ export default {
     ExchangeList
   },
   created() {
-    this.$store.dispatch('exchange/bindExchanges')
+    this.$store.dispatch('exchange/getExchanges')
   },
   computed: {
     exchanges() {
