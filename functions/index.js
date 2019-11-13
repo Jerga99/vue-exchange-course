@@ -99,11 +99,50 @@ exports.updateOpportunityOnUser = functions.firestore
           .update(dataToUpdate)
       }).catch(e => console.log(e))
     }
-
-    
+    return true
   })
 
 
+exports.updateSendOpportunityOnUser = functions.firestore
+  .document('opportunities/{opportunityId}')
+  .onUpdate((change, context) => {
+    const { opportunityId } = context.params
+    const beforeOpportunity = change.before.data()
+    const addedOpportunity = change.after.data()
+
+    if (beforeOpportunity.status !== addedOpportunity.status) {
+      const dataToUpdate = {
+        sendOpportunities: admin.firestore.FieldValue.arrayUnion({
+          id: opportunityId,
+          title: addedOpportunity.title,
+          toExchange: addedOpportunity.toExchange,
+          status: addedOpportunity.status
+        })
+      }
+    
+
+    if (addedOpportunity.status === 'accepted' && addedOpportunity.fromExchangeCash) {
+      dataToUpdate.credit = admin.firestore.FieldValue.increment(-addedOpportunity.fromExchangeCash)
+    }
+
+    return db.collection('profiles')
+      .doc(addedOpportunity.fromUser.id)
+      .update({
+        sendOpportunities: admin.firestore.FieldValue.arrayRemove({
+          id: opportunityId,
+          title: beforeOpportunity.title,
+          toExchange: beforeOpportunity.toExchange,
+          status: beforeOpportunity.status
+        })
+      }).then(_ => {
+        return db
+          .collection('profiles')
+          .doc(addedOpportunity.fromUser.id)
+          .update(dataToUpdate)
+      }).catch(e => console.log(e))
+    }
+    return true
+  })
 
 
 
