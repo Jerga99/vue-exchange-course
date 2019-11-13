@@ -91,10 +91,18 @@ export default {
   },
   methods: {
     acceptOpportunity(opportunity) {
-    
+      this.$store.dispatch('opportunity/acceptOpportunity', opportunity)
+        .then(_ => {
+          this.modal.close()
+          this.$toasted.success('Opportunity has been accepted!', {duration: 3000})
+        }) 
     },
     declineOpportunity(opportunity) {
-     
+     this.$store.dispatch('opportunity/declineOpportunity', opportunity)
+        .then(_ => {
+          this.modal.close()
+          this.$toasted.success('Opportunity has been declined!', {duration: 3000})
+        }) 
     }
   }
 }

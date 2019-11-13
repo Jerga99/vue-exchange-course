@@ -87,6 +87,10 @@ export default {
     },
     addOpportunityToUser(state, opportunity) {
       state.user.profile.sendOpportunities.push(opportunity)
+    },
+    changeOpportunityStatus(state, {id, status}) {
+      const index = state.user.profile.opportunities.findIndex(o => o.id === id)
+      Vue.set(state.user.profile.opportunities[index], 'status', status)
     }
   }
 }

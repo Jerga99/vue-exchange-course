@@ -1,5 +1,6 @@
 
 import { db, Timestamp } from '@/db'
+import Vue from 'vue'
 
 
 const extractDataFromOpportunity = async ({id, opportunity}) => {
@@ -74,11 +75,39 @@ export default {
           commit('setOpportunities', {resource: 'sendOpportunities', opportunities})
           return opportunities
         })
+    },
+    acceptOpportunity({commit}, opportunity) {
+      return db
+        .collection('opportunities')
+        .doc(opportunity.id)
+        .update({
+          status: 'accepted'
+        }).then(_ => {
+          commit('changeOpportunityStatus', {id: opportunity.id, status: 'accepted'})
+          commit('auth/changeOpportunityStatus', {id: opportunity.id, status: 'accepted'}, { root: true })
+          return true
+        })
+    },
+    declineOpportunity({commit}, opportunity) {
+      return db
+        .collection('opportunities')
+        .doc(opportunity.id)
+        .update({
+          status: 'declined'
+        }).then(_ => {
+          commit('changeOpportunityStatus', {id: opportunity.id, status: 'declined'})
+          commit('auth/changeOpportunityStatus', {id: opportunity.id, status: 'declined'}, { root: true })
+          return true
+        })
     }
   },
   mutations: {
     setOpportunities(state, { resource, opportunities }) {
       state[resource] = opportunities
+    },
+    changeOpportunityStatus(state, {id, status}) {
+      const index = state.opportunities.findIndex(o => o.id === id)
+      Vue.set(state.opportunities[index], 'status', status)
     }
   }
 }
