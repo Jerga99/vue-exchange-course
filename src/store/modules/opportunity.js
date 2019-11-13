@@ -37,6 +37,7 @@ export default {
         })
     },
     getOpportunities({rootState, commit}) {
+      // TODO: consider to reset data
       const { uid } = rootState.auth.user
       if (!uid) return Promise.reject('User is not logged in!')
 
