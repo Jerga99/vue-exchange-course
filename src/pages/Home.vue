@@ -9,7 +9,7 @@
           :exchanges="exchanges" />
       </div>
     </section>
-    <pagination />
+    <pagination :onNextPage="getMoreExchanges" />
   </div>
 </template>
 
@@ -30,6 +30,11 @@ export default {
   computed: {
     exchanges() {
       return this.$store.state.exchange.items
+    }
+  },
+  methods: {
+    getMoreExchanges({page}) {
+      this.$store.dispatch('exchange/getMoreExchanges', {page})
     }
   }
 }

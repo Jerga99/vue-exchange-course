@@ -23,14 +23,42 @@ export default {
         .limit(state.pagination.itemCount)
         .get()
         .then(snapshots => {
+          if (snapshots.docs.length === 0) { return [] }
           const exchanges = snapshots.docs.map(doc => ({...doc.data(), id: doc.id}))
           commit('setExchanges', exchanges)
-          commit('setLastItem', exchanges[exchanges.length - 1])
-          commit('setPreviousFirstItem', exchanges[0])
+          commit('setLastItem', snapshots.docs[snapshots.docs.length - 1])
+          commit('setPreviousFirstItem', snapshots.docs[0])
           return exchanges
         })
+    },
+    getMoreExchanges({commit, state}, { page }) {
+      if (state.pagination.isFetchingData) { return }
+      let query
+      commit('setIsFetchingData', true)
 
-      // commit('setExchanges', exchanges)
+      if (page === 'next') {
+        query = db
+          .collection('exchanges')
+          .startAfter(state.pagination.lastItem)
+          .limit(state.pagination.itemCount)
+      }
+
+      return query
+        .get()
+        .then(snapshots => {
+          commit('setIsFetchingData', false)
+          if (snapshots.docs.length === 0) { return [] }
+
+          const exchanges = snapshots.docs.map(doc => ({...doc.data(), id: doc.id}))
+          commit('setExchanges', exchanges)
+          commit('setLastItem', snapshots.docs[snapshots.docs.length - 1])
+
+          if (page === 'next') {
+            commit('setPreviousFirstItem', snapshots.docs[0])
+          }
+
+          return exchanges
+        })
     },
     bindExchanges: firestoreAction(({ bindFirestoreRef }) => {
       // return the promise returned by `bindFirestoreRef`
@@ -82,6 +110,9 @@ export default {
     },
     setPreviousFirstItem(state, item) {
       state.pagination.previousFirstItems.push(item)
+    },
+    setIsFetchingData(state, isFetching) {
+      state.pagination.isFetchingData = isFetching
     }
   }
 }
