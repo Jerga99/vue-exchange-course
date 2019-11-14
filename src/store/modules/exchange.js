@@ -9,11 +9,18 @@ export default {
       items: [],
       item: {},
       pagination: {
-        itemCount: 1,
+        itemCount: 3,
         lastItem: null,
         previousFirstItems: [],
         isFetchingData: false
       }
+    }
+  },
+  getters: {
+    currentPage(state) {
+      if (!state.pagination.previousFirstItems) { return 1 }
+
+      return state.pagination.previousFirstItems.length
     }
   },
   actions: {

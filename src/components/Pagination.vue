@@ -12,7 +12,7 @@
       <li>
         <button
           type="button" 
-          class="pagination-link button has-text-weight-bold is-primary">Page 1 of 5</button>
+          class="pagination-link button has-text-weight-bold is-primary">Page {{currentPage}}</button>
       </li>
       <li>
         <button 
@@ -31,6 +31,24 @@
         type: Function,
         required: true
       }
+    },
+    computed: {
+      currentPage() {
+        return this.$store.getters['exchange/currentPage']
+      }
     }
   }
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
