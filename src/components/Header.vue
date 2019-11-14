@@ -56,12 +56,11 @@
                 class="navbar-item nav-home">
                 Create Exchange
               </router-link>
-              <a
-                @click="$store.dispatch('auth/signOut')"
-                href="#" 
+              <router-link
+                to="/logout" 
                 class="navbar-item nav-home">
                 Logout
-              </a>
+              </router-link>
             </template>
           </div>
         </div>

@@ -6,6 +6,7 @@ import HomePage from '@/pages/Home'
 import AboutPage from '@/pages/About'
 import FaqPage from '@/pages/Faq'
 import LoginPage from '@/pages/Login'
+import LogoutPage from '@/pages/Logout'
 import RegisterPage from '@/pages/Register'
 import ProfilePage from '@/pages/Profile'
 import ExchangeCreatePage from '@/pages/ExchangeCreate'
@@ -38,6 +39,11 @@ const router = new Router({
       name: 'LoginPage',
       component: LoginPage,
       meta: { onlyGuestUser: true }
+    },
+    {
+      path: '/logout',
+      name: 'LogoutPage',
+      component: LogoutPage
     },
     {
       path: '/register',
