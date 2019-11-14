@@ -10,18 +10,26 @@
       <div class="container">
         <div class="navbar-brand">
           <a
-            @click="alertMessage()" 
             class="navbar-item has-text-white is-size-2 has-text-weight-bold"
             href="#">
             {{ brandName }}
           </a>
-          <span role="button" tabindex="0" class="navbar-burger burger has-text-white" data-target="navbar-menu">
+          <span 
+            @click="isMenuOpen = !isMenuOpen"
+            role="button" 
+            tabindex="0"
+            :class="{'is-active': isMenuOpen}" 
+            class="navbar-burger burger has-text-white" 
+            data-target="navbar-menu">
             <span></span>
             <span></span>
             <span></span>
           </span>
         </div>
-        <div id="navbar-menu" class="navbar-menu">
+        <div 
+          id="navbar-menu"
+          :class="{'is-active': isMenuOpen}"  
+          class="navbar-menu">
           <div class="navbar-end">
             <div
               v-if="isAuthenticated" 
@@ -82,6 +90,11 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      isMenuOpen: false
+    }
+  },
   computed: {
     user() {
       return this.$store.state.auth.user
@@ -90,9 +103,18 @@ export default {
       return this.$store.getters['auth/isAuthenticated']
     }
   },
+  created() {
+    // Introduce here some delay in function excution (debounce)
+    window.addEventListener('resize', this.handleWindowResizing)
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.handleWindowResizing)
+  },
   methods: {
-    alertMessage() {
-      alert(this.$route.path)
+    handleWindowResizing(e) {
+      if (this.isMenuOpen && e.target.innerWidth > 1023) {
+        this.isMenuOpen = false
+      }
     }
   }
 }
