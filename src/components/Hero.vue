@@ -23,12 +23,14 @@
               <span>Search For</span>
             </div>
             <div class="level-item">
-              <input type="text"
-                     class="input"
-                     placeholder="Driller">
+              <input 
+                @input="handleSearch"
+                type="text"
+                class="input"
+                placeholder="Driller">
             </div>
             <div class="level-item">
-              <span>Searching "Driller"</span>
+              <span v-if="searchedValue">Searching "{{searchedValue}}"</span>
             </div>
           </div>
         </div>
@@ -37,6 +39,29 @@
   </div>
 </template>
 
+<script>
+export default {
+  props: {
+    onSearch: {
+      type: Function,
+      required: false
+    }
+  },
+  data() {
+    return {
+      searchedValue: ''
+    }
+  },
+  methods: {
+    handleSearch(e) {
+      const { value } = e.target
+      this.searchedValue = value
+      
+      this.onSearch && this.onSearch(value)
+    }
+  }
+}
+</script>
 
 
 <style scoped lang="scss">

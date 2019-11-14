@@ -21,6 +21,10 @@ export default {
       if (!state.pagination.previousFirstItems) { return 1 }
 
       return state.pagination.previousFirstItems.length
+    },
+    filteredExchanges: state => exchangeTitle => {
+      console.log(exchangeTitle)
+      return []
     }
   },
   actions: {
