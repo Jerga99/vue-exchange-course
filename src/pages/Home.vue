@@ -10,7 +10,6 @@
       </div>
     </section>
     <pagination :onNextPage="getMoreExchanges" />
-    {{filteredExchanges}}
   </div>
 </template>
 
@@ -35,9 +34,6 @@ export default {
   },
   computed: {
     exchanges() {
-      return this.$store.state.exchange.items
-    },
-    filteredExchanges() {
       return this.$store.getters['exchange/filteredExchanges'](this.searchedExchangeTitle)
     }
   },

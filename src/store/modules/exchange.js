@@ -22,9 +22,16 @@ export default {
 
       return state.pagination.previousFirstItems.length
     },
-    filteredExchanges: state => exchangeTitle => {
-      console.log(exchangeTitle)
-      return []
+    filteredExchanges: state => searchedTitle => {
+      const { items } = state
+
+      if (!searchedTitle) { return items }
+
+      const filteredExchanges = items.filter(item => {
+        return item.title && item.title.toLowerCase().includes(searchedTitle.toLowerCase())
+      })
+
+      return filteredExchanges
     }
   },
   actions: {
