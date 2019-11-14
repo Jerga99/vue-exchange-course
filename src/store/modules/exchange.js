@@ -9,7 +9,7 @@ export default {
       items: [],
       item: {},
       pagination: {
-        itemCount: 3,
+        itemCount: 1,
         lastItem: null,
         previousFirstItems: [],
         isFetchingData: false
@@ -40,6 +40,21 @@ export default {
         query = db
           .collection('exchanges')
           .startAfter(state.pagination.lastItem)
+          .limit(state.pagination.itemCount)
+      } else {
+        const lastItemIndex = state.pagination.previousFirstItems.length - 1
+        const previousItem = state.pagination.previousFirstItems[lastItemIndex - 1]
+
+        if (!previousItem) {
+          commit('setIsFetchingData', false)
+          return
+        }
+
+        // WARNING! Write mutation for this!
+        state.pagination.previousFirstItems.splice(lastItemIndex, 1)
+        query = db
+          .collection('exchanges')
+          .startAt(previousItem)
           .limit(state.pagination.itemCount)
       }
 
