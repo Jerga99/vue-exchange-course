@@ -28,25 +28,40 @@
                      placeholder="Driller">
             </div>
             <div class="level-item">
-              <button class="button">Search</button>
-            </div>
-            <div class="level-item">
               <span>Searching "Driller"</span>
             </div>
-            <div class="level-item">
-              <span>With tag of</span>
-            </div>
-            <div class="level-item">
-              <button class="button is-danger">Art</button>
-            </div>
           </div>
-          <!-- <div class="level-right">
-            <div class="level-item">
-              <button class="button is-medium">Search</button>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
   </div>
 </template>
+
+
+
+<style scoped lang="scss">
+  @media only screen and (max-width: 769px) {
+    .search-lookup-wrap {
+      position: inherit;
+      bottom: unset;
+    }
+
+    .search-lookup {
+      width: 100%;
+      border-radius: 0px;
+    }
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
