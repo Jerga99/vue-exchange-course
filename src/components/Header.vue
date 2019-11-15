@@ -54,16 +54,23 @@
               </router-link>
             </template>
             <template v-else>
-              <router-link
-                to="/users/me"
-                class="navbar-item nav-home">
-                Profile
-              </router-link>
-              <router-link
-                to="/exchanges/new"
-                class="navbar-item nav-home">
-                Create Exchange
-              </router-link>
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  Manage
+                </a>
+                <div class="navbar-dropdown">
+                  <router-link
+                    to="/users/me"
+                    class="navbar-item">
+                    Profile
+                  </router-link>
+                  <router-link
+                    to="/exchanges/new"
+                    class="navbar-item">
+                    Create Exchange
+                  </router-link>
+                </div>
+              </div>
               <router-link
                 to="/logout" 
                 class="navbar-item nav-home">
@@ -119,6 +126,44 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+  .header {
+    .navbar-item {
+      .navbar-link {
+        color: white;
+      }
+
+      @media only screen and (max-width: 1023px) {
+        .navbar-link {
+          color: black;
+        }
+      }
+    }
+
+    @media screen and (min-width: 1024px) {
+      .navbar-item.has-dropdown:hover .navbar-link {
+         color: black;
+
+        &:not(.is-arrowless)::after {
+          border-color: black;
+        }
+      }
+    }
+   
+    .navbar-dropdown {
+      .navbar-item {
+        color: black;
+      }
+    }
+
+    .navbar-link:not(.is-arrowless)::after {
+      border-color: white;
+    }
+  }
+</style>
+
+
 
 
 

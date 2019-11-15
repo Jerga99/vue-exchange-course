@@ -1,6 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container base-page">
     <div class="form-container">
+      <h1>Create Exchange</h1>
       <form>
         <div class="field">
           <label class="label">Type</label>

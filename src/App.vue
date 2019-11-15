@@ -33,6 +33,10 @@ export default {
     padding-top: 100px;
   }
 
+  .base-page {
+    padding-top: 30px;
+  }
+
   .hero-section {
     position: relative;
   }

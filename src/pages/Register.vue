@@ -1,5 +1,5 @@
 <template>
-  <div class="container has-text-centered">
+  <div class="container has-text-centered base-page">
     <div class="column is-4 is-offset-4">
       <h3 class="title has-text-grey">Register</h3>
       <div class="box">
