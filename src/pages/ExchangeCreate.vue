@@ -208,7 +208,7 @@ export default {
       if (this.isFormValid) {
         this.$store.dispatch('exchange/createExchange', { ...this.form })
           .then(_ => this.$router.push({name: 'ProfilePage'}))
-          .catch(e => console.error(e))
+          .catch(e => console.error(e.message))
       }
     },
     handleTags(e) {
