@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import Toasted from 'vue-toasted'
 import Vuelidate from 'vuelidate'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -19,6 +21,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(Toasted)
 Vue.use(Vuelidate)
+Vue.use(ElementUI);
 
 Vue.config.productionTip = false
 

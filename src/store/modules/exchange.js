@@ -1,5 +1,5 @@
 
-import { db } from '@/db'
+import { db, fb } from '@/db'
 import { firestoreAction } from 'vuexfire'
 
 export default {
@@ -19,7 +19,6 @@ export default {
   getters: {
     currentPage(state) {
       if (!state.pagination.previousFirstItems) { return 1 }
-
       return state.pagination.previousFirstItems.length
     },
     filteredExchanges: state => searchedTitle => {
@@ -35,6 +34,24 @@ export default {
     }
   },
   actions: {
+    uploadImage(ctx, image) {
+      return new Promise((res, rej) => {
+        const storage = fb.storage()
+        const storageRef = storage.ref();
+        const uploadTask = storageRef.child('images/' + image.name).put(image);
+        uploadTask.on('state_changed',
+          // Handle progress here -> https://firebase.google.com/docs/storage/web/upload-files
+          () => {},
+          // Handle Error here
+          () => {},
+          // Handle Success
+          () => {
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+              res(downloadURL)
+            });
+          })
+      })
+    },
     getExchanges({commit, state}) {
      return db
         .collection('exchanges')
@@ -107,8 +124,8 @@ export default {
           const exchange = snapshot.data()
           exchange.id = snapshot.id
           const userSnapshot = await exchange.user.get()
-          exchange.user = userSnapshot.data() 
-          exchange.user.id = userSnapshot.id       
+          exchange.user = userSnapshot.data()
+          exchange.user.id = userSnapshot.id
           commit('setExchange', exchange)
           return exchange
         })
