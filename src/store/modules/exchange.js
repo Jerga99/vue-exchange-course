@@ -53,6 +53,7 @@ export default {
       })
     },
     getExchanges({commit, state}) {
+     commit('resetItems');
      return db
         .collection('exchanges')
         .limit(state.pagination.itemCount)
@@ -160,6 +161,9 @@ export default {
     },
     setPreviousFirstItem(state, item) {
       state.pagination.previousFirstItems.push(item)
+    },
+    resetItems(state, item) {
+      state.pagination.previousFirstItems = [];
     },
     setIsFetchingData(state, isFetching) {
       state.pagination.isFetchingData = isFetching
